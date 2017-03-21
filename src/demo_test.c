@@ -97,5 +97,24 @@ main(int argc, char *argv[])
            "or 'tmr:///dev/ttyS0')\n\n");
     exit(1);
   }
+  
+  uri = argv[0];
+  rp = &r;
+  ret = TMR_create(rp, uri);
 
+  if (TMR_SUCCESS != ret)
+  {
+    errx(1, "Error creating reader: %s\n", TMR_strerr(rp, ret));
+  }
+
+  if (TMR_READER_TYPE_SERIAL == rp->readerType)
+  {
+    tb.listener = serialPrinter;
+  }
+  else
+  {
+    tb.listener = stringPrinter;
+  }
+
+  tb.cookie = stdout;
 }

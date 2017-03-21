@@ -137,8 +137,12 @@ include_directories(include/${PROJECT_NAME} ${MIPLIBINC} thirdparty)
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 #add_executable(${PROJECT_NAME}_node src/thingmagic_rfid_node.cpp)
+
+file(GLOB SOURCES "thirdparty/*.c")
+
 add_executable(demo_test
   src/demo_test.c
+  ${SOURCES}
 )
 
 target_link_libraries(demo_test 
