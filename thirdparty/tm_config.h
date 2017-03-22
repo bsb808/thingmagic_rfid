@@ -130,7 +130,7 @@ Note:To run readsync_baremetal codelet you have to
  ** Run make with TMR_ENABLE_SERIAL_READER_ONLY=1 defined
  ** Add -DTMR_ENABLE_SERIAL_READER_ONLY=1 to your compiler flags
  */ 
-//#define TMR_ENABLE_SERIAL_READER_ONLY
+#define TMR_ENABLE_SERIAL_READER_ONLY
 
 /**
  * Define this to enable support for background reads using native threads.
@@ -195,8 +195,8 @@ Note:To run readsync_baremetal codelet you have to
  * This feature is also available for windows (using pthreads-win32)
  */
 
-#undef TMR_ENABLE_BACKGROUND_READS
-
+#define TMR_ENABLE_BACKGROUND_READS
+#undef  TMR_ENABLE_BACKGROUND_READS
 
 /**
  * Define this to include TMR_strerror().

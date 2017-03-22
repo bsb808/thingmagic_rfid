@@ -19,25 +19,28 @@ along with the package.  If not, see <http://www.gnu.org/licenses/>.
 
 */
 
-#include "tm_reader.h"
+#include "thing_reader.h"
 #include <string>
 
 namespace TMR
 {
-  TMR::TMR()
+  ThingReader::ThingReader()
   {
     // pass
   }
-  TMR::~TMR()
+  ThingReader::~ThingReader()
   {
     // pass
   }
-  void TMR::run()
+  void ThingReader::run()
   {
+    
     // ROS setup
     ros::Time::init();
     ros::NodeHandle node;
     ros::NodeHandle private_nh("~");
+
+    ROS_INFO("Thingmagic Reader");
 
     // ROS Parameters
     // Comms Parameters
@@ -45,7 +48,49 @@ namespace TMR
     int baud;
     private_nh.param("port", port, std::string("/dev/ttyACM0"));
     private_nh.param("baudrate",baud,115200);
-  } // end of TMR::run()
 
-} // TMR namespace
+    // Setup TMR reader - taken from readasync.c example in SDK
 
+    TMR_Reader r, *rp;
+    TMR_Status ret;
+    TMR_Region region;
+    TMR_ReadPlan plan;
+    TMR_ReadListenerBlock rlb;
+    TMR_ReadExceptionListenerBlock reb;
+    uint8_t *antennaList = NULL;
+    uint8_t buffer[20];
+    uint8_t i;
+    uint8_t antennaCount = 0x0;
+    TMR_String model;
+    char str[64];
+
+    rp = &r;
+    //ret = TMR_create(rp, argv[1]);
+    ret = TMR_create(rp,"tmr:///dev/ttyACM0");
+    //checkerr(rp, ret, 1, "creating reader");
+
+
+  } // end of ThingReader::run()
+
+
+} // ThingReader namespace
+
+			  /*
+void errx(int exitval, const char *fmt, ...)
+{
+  va_list ap;
+  
+  va_start(ap, fmt);
+  vfprintf(stderr, fmt, ap);
+  
+  exit(exitval);
+}
+
+void checkerr(TMR_Reader* rp, TMR_Status ret, int exitval, const char *msg)
+{
+  if (TMR_SUCCESS != ret)
+    {
+      errx(exitval, "Error %s: %s\n", msg, TMR_strerr(rp, ret));
+    }
+}
+			  */

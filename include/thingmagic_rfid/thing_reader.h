@@ -20,10 +20,20 @@ along with the package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 
-#ifndef _TM_READER_H
-#define _TM_READER_H
+#ifndef _THING_READER_H
+#define _THING_READER_H
 
 #include <cstdio>
+#include <unistd.h>
+
+extern "C"{
+#include "tm_reader.h"
+}
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
+#include <inttypes.h>
 #include <unistd.h>
 
 
@@ -39,16 +49,16 @@ namespace TMR
    * \brief TMR class
    * 
    */
-  class TMR
+  class ThingReader
   {
   public:
     /**
      * Contructor 
      */
-    TMR();
+    ThingReader();
 
     /** Destructor */
-    ~TMR();
+    ~ThingReader();
 
     /** 
      * Main run loop
@@ -57,7 +67,11 @@ namespace TMR
    
   }; // TMR class
 
-  
 } // namespace TMR
+
+
+//void errx(int exitval, const char *fmt, ...);
+//void checkerr(TMR_Reader* rp, TMR_Status ret, int exitval, const char *msg);
+
 
 #endif 

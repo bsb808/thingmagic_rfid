@@ -30,13 +30,13 @@ along with the package.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 
-#include "tm_reader.h"
+#include "thing_reader.h"
 #include <ros/ros.h>
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "tm_reader_node");
-  TMR::TMR tm_reader;
-  tm_reader.run();
+  ros::init(argc, argv, "thing_reader_node");
+  TMR::ThingReader thing_reader;
+  thing_reader.run();
   return 0;
 }

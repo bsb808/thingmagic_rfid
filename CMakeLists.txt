@@ -143,7 +143,7 @@ set(SOURCES
   ${SOURCES}
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tmr_strerror.c
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_reader.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_reader_async.c
+  #${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_reader_async.c
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/hex_bytes.c
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tmr_utils.c
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/serial_transport_posix.c
@@ -170,32 +170,33 @@ set(SOURCES
 
 find_package(Threads)
 
-add_executable(read
-  src/read.c
+#add_executable(read
+#  src/read.c
+#  ${SOURCES}
+#)
+
+#target_link_libraries(read ${CMAKE_THREAD_LIBS_INIT})
+
+#add_executable(readasync
+#  src/readasync.c
+#  ${SOURCES}
+#)
+#
+#target_link_libraries(readasync ${CMAKE_THREAD_LIBS_INIT})
+
+add_library(thing_reader
+  src/thing_reader.cpp
+)
+add_executable(thing_reader_node
+  src/thing_reader_node.cpp
   ${SOURCES}
 )
-
-target_link_libraries(read ${CMAKE_THREAD_LIBS_INIT})
-
-add_executable(readasync
-  src/readasync.c
-  ${SOURCES}
-)
-
-target_link_libraries(readasync ${CMAKE_THREAD_LIBS_INIT})
-
-add_library(tm_reader
-  src/tm_reader.cpp
-)
-add_executable(tm_reader_node
-  src/tm_reader_node.cpp
-)
-target_link_libraries(tm_reader
+target_link_libraries(thing_reader
   ${catkin_LIBRARIES}
 )
 
-target_link_libraries(tm_reader_node
-  tm_reader
+target_link_libraries(thing_reader_node
+  thing_reader
   ${catkin_LIBRARIES}
 )
 
