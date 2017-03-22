@@ -120,7 +120,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(include/${PROJECT_NAME} ${MIPLIBINC} thirdparty)
+include_directories(include/${PROJECT_NAME} thirdparty)
 
 
 ## Declare a C++ library
@@ -138,16 +138,53 @@ include_directories(include/${PROJECT_NAME} ${MIPLIBINC} thirdparty)
 ## The recommended prefix ensures that target names across packages don't collide
 #add_executable(${PROJECT_NAME}_node src/thingmagic_rfid_node.cpp)
 
-file(GLOB SOURCES "thirdparty/*.c")
+#file(GLOB SOURCES "thirdparty/*.c")
+set(SOURCES
+  ${SOURCES}
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tmr_strerror.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_reader.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_reader_async.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/hex_bytes.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tmr_utils.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/serial_transport_posix.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/osdep_posix.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/llrp_reader.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/llrp_reader_l3.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/serial_reader.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/serial_reader_l3.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_array.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_genout.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_connection.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_typeregistry.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_element.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_encdec.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_error.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_hdrfd.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_xmltextencode.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_frameencode.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_framedecode.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_frameextract.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_ltkc_genout.c
 
-add_executable(demo_test
-  src/demo_test.c
+)
+
+find_package(Threads)
+
+add_executable(read
+  src/read.c
   ${SOURCES}
 )
 
-target_link_libraries(demo_test 
-  readline
-)
+target_link_libraries(read ${CMAKE_THREAD_LIBS_INIT})
+
+#add_executable(demo_test
+#  src/demo_test.c
+#  ${SOURCES}
+#)
+
+#target_link_libraries(demo_test 
+#  readline
+#)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

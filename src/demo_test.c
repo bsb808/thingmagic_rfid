@@ -17,6 +17,7 @@
 #include "tm_reader.h"
 #include "serial_reader_imp.h"
 
+
 bool connected;
 
 TMR_Reader r, *rp;
@@ -104,7 +105,7 @@ main(int argc, char *argv[])
 
   if (TMR_SUCCESS != ret)
   {
-    errx(1, "Error creating reader: %s\n", TMR_strerr(rp, ret));
+    //errx(1, "Error creating reader: %s\n", TMR_strerr(rp, ret));
   }
 
   if (TMR_READER_TYPE_SERIAL == rp->readerType)
@@ -117,4 +118,35 @@ main(int argc, char *argv[])
   }
 
   tb.cookie = stdout;
+}
+
+
+void
+serialPrinter(bool tx, uint32_t dataLen, const uint8_t data[],
+              uint32_t timeout, void *cookie)
+{
+  FILE *out;
+  uint32_t i;
+
+  out = cookie;
+
+  fprintf(out, "%s", tx ? "Sending: " : "Received:");
+  for (i = 0; i < dataLen; i++)
+  {
+    if (i > 0 && (i & 15) == 0)
+    {
+      fprintf(out, "\n         ");
+    }
+    fprintf(out, " %02x", data[i]);
+  }
+  fprintf(out, "\n");
+}
+
+
+void stringPrinter(bool tx,uint32_t dataLen, const uint8_t data[],uint32_t timeout, void *cookie)
+{
+  FILE *out = cookie;
+
+  fprintf(out, "%s", tx ? "Sending: " : "Received:");
+  fprintf(out, "%s\n", data);
 }
