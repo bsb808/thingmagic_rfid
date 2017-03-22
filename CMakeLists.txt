@@ -177,6 +177,29 @@ add_executable(read
 
 target_link_libraries(read ${CMAKE_THREAD_LIBS_INIT})
 
+add_executable(readasync
+  src/readasync.c
+  ${SOURCES}
+)
+
+target_link_libraries(readasync ${CMAKE_THREAD_LIBS_INIT})
+
+add_library(tm_reader
+  src/tm_reader.cpp
+)
+add_executable(tm_reader_node
+  src/tm_reader_node.cpp
+)
+target_link_libraries(tm_reader
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(tm_reader_node
+  tm_reader
+  ${catkin_LIBRARIES}
+)
+
+
 #add_executable(demo_test
 #  src/demo_test.c
 #  ${SOURCES}
