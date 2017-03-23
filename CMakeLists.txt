@@ -143,28 +143,28 @@ set(SOURCES
   ${SOURCES}
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tmr_strerror.c
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_reader.c
-  #${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_reader_async.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_reader_async.c
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/hex_bytes.c
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tmr_utils.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/serial_transport_posix.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/osdep_posix.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/llrp_reader.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/llrp_reader_l3.c
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/serial_reader.c
   ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/serial_reader_l3.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_array.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_genout.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_connection.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_typeregistry.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_element.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_encdec.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_error.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_hdrfd.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_xmltextencode.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_frameencode.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_framedecode.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_frameextract.c
-  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_ltkc_genout.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/serial_transport_posix.c
+  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/osdep_posix.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/llrp_reader.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/llrp_reader_l3.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_array.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_genout.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_connection.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_typeregistry.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_element.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_encdec.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_error.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_hdrfd.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_xmltextencode.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_frameencode.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_framedecode.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/ltkc_frameextract.c
+#  ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/tm_ltkc_genout.c
 
 )
 
@@ -177,12 +177,11 @@ find_package(Threads)
 
 #target_link_libraries(read ${CMAKE_THREAD_LIBS_INIT})
 
-#add_executable(readasync
-#  src/readasync.c
-#  ${SOURCES}
-#)
-#
-#target_link_libraries(readasync ${CMAKE_THREAD_LIBS_INIT})
+add_executable(readasync
+  src/readasync.c
+  ${SOURCES}
+)
+target_link_libraries(readasync ${CMAKE_THREAD_LIBS_INIT})
 
 add_library(thing_reader
   src/thing_reader.cpp
@@ -194,7 +193,6 @@ add_executable(thing_reader_node
 target_link_libraries(thing_reader
   ${catkin_LIBRARIES}
 )
-
 target_link_libraries(thing_reader_node
   thing_reader
   ${catkin_LIBRARIES}
