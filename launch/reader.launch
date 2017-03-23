@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Standalone example launch file -->
+
+  <!-- For setting debug level to debug -->
+  <env name="ROSCONSOLE_CONFIG_FILE" 
+       value="$(find thingmagic_rfid)/config/custom_rosconsole.conf"/>
+
+  <!-- Microstain sensor node -->
+  <node name="thing_reader_node" 
+  pkg="thingmagic_rfid" 
+  type="thing_reader_node" output="screen">
+    <!--<param name="port" value="/dev/ttyACM0" type="str" />-->
+    <param name="port" value="/dev/ttyACM0" type="str" />
+  </node>
+  
+</launch>

@@ -37,6 +37,6 @@ int main(int argc, char **argv)
 {
   ros::init(argc, argv, "thing_reader_node");
   TMR::ThingReader thing_reader;
-  thing_reader.run();
-  return 0;
+  int rtn = thing_reader.run();
+  return rtn;
 }

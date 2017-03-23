@@ -39,6 +39,7 @@ extern "C"{
 
 // ROS
 #include "ros/ros.h"
+#include "std_msgs/String.h"
 
 /**
  * \brief Contains functions for micostrain driver
@@ -63,15 +64,28 @@ namespace TMR
     /** 
      * Main run loop
      */
-    void run();
-   
+    int run();
+
+    void rfid_callback(TMR_Reader *reader, const TMR_TagReadData *t, void *cookie);
+
+  private:
+    ros::Publisher string_pub_;
+    std_msgs::String string_msg_;
+
+
+ 
   }; // TMR class
+
+  void errx(int exitval, const char *fmt, ...);
+  void checkerr(TMR_Reader* rp, TMR_Status ret, int exitval, const char *msg);
+  void callback_wrapper(TMR_Reader *reader, const TMR_TagReadData *t, void *cookie);
+  void exceptionCallback(TMR_Reader *reader, TMR_Status error, void *cookie);
 
 } // namespace TMR
 
 
-//void errx(int exitval, const char *fmt, ...);
-//void checkerr(TMR_Reader* rp, TMR_Status ret, int exitval, const char *msg);
+
+
 
 
 #endif 
